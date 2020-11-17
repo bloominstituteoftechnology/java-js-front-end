@@ -19,3 +19,5 @@ You will also see any lint errors in the console.
 ### `UserInfo.js`
 
 [ ] Make sure you have `/users/getuserinfo` endpoint
+
+![Video Sample](https://www.loom.com/embed/dd4f469dd718476cb1cd8f98965cf8fb)
