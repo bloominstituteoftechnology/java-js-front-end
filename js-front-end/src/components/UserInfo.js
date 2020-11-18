@@ -1,16 +1,41 @@
-import { axiosWithAuth } from './axiosWithAuth';
+import React, { useEffect, useState } from "react";
+import { axiosWithAuth } from "./axiosWithAuth";
+import { useHistory } from "react-router-dom";
 
-const getUserInfo = (props) => {
-  axiosWithAuth()
-  .get('http://localhost:2019/users/getuserinfo')
-  .then(res => {
-    console.log(res.data)
-    })
-  .catch(err => {
-    debugger
-  })
+const GetUserInfo = (props) => {
+	const [userData, setUserData] = useState({});
+	const history = useHistory();
 
-  return null
-}
+	const logout = () => {
+		localStorage.clear("token");
+		history.push("/");
+	};
+	useEffect(() => {
+		axiosWithAuth()
+			.get("/users/getuserinfo")
+			.then((res) => {
+				console.log(res.data);
+				setUserData(res.data)
+			})
+			.catch((err) => {
+				debugger;
+			});
+	}, []);
 
-export default getUserInfo;
+	return (
+		<>
+			<div>
+				<h1> Hi, {userData.username}! </h1>
+				<h3> {userData.primaryemail} </h3>
+				<br/>
+				<p>Congratulations! You are now a Back-end developer.</p>
+			</div>
+			<br/>
+			<div className="logout">
+				<button type="button" onClick={logout}> Logout </button>
+			</div>
+		</>
+	);
+};
+
+export default GetUserInfo;
